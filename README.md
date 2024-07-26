@@ -233,3 +233,189 @@ Certainly! The Java Stream API provides a powerful way to work with collections 
    - **Statelessness**: Operations on streams should ideally be stateless, meaning they should not depend on any mutable state or have side effects to ensure predictable behavior, especially in parallel streams.
 
 The Java Stream API is a fundamental part of modern Java programming, enabling developers to write concise, readable, and efficient code for manipulating collections of data. Understanding these functions and concepts will help you leverage streams effectively in your Java applications.
+
+---
+
+### Method Overloading
+
+**Definition**: Method overloading in Java occurs when a class has more than one method with the same name, but different parameters (different type, number, or both). Overloaded methods can have different return types but must differ in their parameter lists.
+
+**Key Points**:
+- It is resolved at compile-time (compile-time polymorphism).
+- It is within the same class.
+- It helps to increase the readability of the program.
+
+**Example**:
+```java
+public class MathOperations {
+    // Overloaded method with different parameter types
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    // Overloaded method with different number of parameters
+    public double add(double a, double b, double c) {
+        return a + b + c;
+    }
+
+    // Overloaded method with different number of parameters
+    public int add(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        MathOperations mathOps = new MathOperations();
+        
+        System.out.println(mathOps.add(5, 10)); // Calls the first add method
+        System.out.println(mathOps.add(5.0, 10.0, 15.0)); // Calls the second add method
+        System.out.println(mathOps.add(5, 10, 15)); // Calls the third add method
+    }
+}
+```
+
+### Method Overriding
+
+**Definition**: Method overriding in Java occurs when a subclass provides a specific implementation for a method that is already defined in its superclass. The method in the child class must have the same name, return type, and parameters as the method in the parent class.
+
+**Key Points**:
+- It is resolved at runtime (runtime polymorphism).
+- It is used in the context of inheritance.
+- The `@Override` annotation is often used to indicate that a method is overriding a superclass method.
+- The overridden method can call the parent class method using the `super` keyword.
+
+**Example**:
+```java
+class Animal {
+    // Method to be overridden
+    public void makeSound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    // Overriding the method from Animal class
+    @Override
+    public void makeSound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        myDog.makeSound(); // Calls the overridden method in Dog class
+    }
+}
+```
+
+**Difference Summary**:
+- **Method Overloading**:
+  - Same method name, different parameters.
+  - Occurs within the same class.
+  - Compile-time polymorphism.
+
+- **Method Overriding**:
+  - Same method name, same parameters, and return type.
+  - Occurs in a subclass (inheritance).
+  - Runtime polymorphism.
+
+Both concepts are fundamental in Java programming and are widely used to implement polymorphism and enhance code flexibility and readability.
+
+---
+
+### Abstract Classes
+
+**Definition**: An abstract class in Java is a class that cannot be instantiated on its own and is meant to be subclassed. It can have both abstract methods (without a body) and concrete methods (with a body).
+
+**Key Points**:
+- Abstract classes can contain both abstract and non-abstract methods.
+- They can have member variables and constructors.
+- They can provide a base for subclasses to build upon and implement specific behaviors.
+- An abstract class is declared using the `abstract` keyword.
+- A subclass must provide implementations for all abstract methods in the abstract class unless the subclass is also abstract.
+
+**Example**:
+```java
+abstract class Animal {
+    // Abstract method (no implementation)
+    public abstract void makeSound();
+
+    // Concrete method
+    public void sleep() {
+        System.out.println("This animal is sleeping");
+    }
+}
+
+class Dog extends Animal {
+    // Implementing the abstract method
+    @Override
+    public void makeSound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.makeSound(); // Calls the implemented method
+        myDog.sleep(); // Calls the concrete method from abstract class
+    }
+}
+```
+
+### Interfaces
+
+**Definition**: An interface in Java is a reference type that can contain only abstract methods (prior to Java 8) and static constants. Starting from Java 8, interfaces can also contain default methods (with a body) and static methods. From Java 9 onwards, interfaces can contain private methods.
+
+**Key Points**:
+- All methods in an interface are abstract by default (except default and static methods).
+- Interfaces cannot have instance variables but can have static constants.
+- A class can implement multiple interfaces, providing a way to achieve multiple inheritance in Java.
+- Interfaces are declared using the `interface` keyword.
+- The implementing class must provide implementations for all abstract methods defined in the interface.
+
+**Example**:
+```java
+interface Animal {
+    // Abstract method
+    void makeSound();
+
+    // Default method (Java 8+)
+    default void sleep() {
+        System.out.println("This animal is sleeping");
+    }
+}
+
+class Dog implements Animal {
+    // Implementing the abstract method
+    @Override
+    public void makeSound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        myDog.makeSound(); // Calls the implemented method
+        myDog.sleep(); // Calls the default method from interface
+    }
+}
+```
+
+**Difference Summary**:
+- **Abstract Class**:
+  - Can have both abstract and concrete methods.
+  - Can have member variables.
+  - Can provide constructors.
+  - Supports single inheritance (a class can extend only one abstract class).
+
+- **Interface**:
+  - All methods are abstract by default (prior to Java 8). From Java 8, interfaces can also have default and static methods; from Java 9, they can have private methods.
+  - Cannot have instance variables but can have static constants.
+  - Does not provide constructors.
+  - Supports multiple inheritance (a class can implement multiple interfaces).
+
+Both abstract classes and interfaces are used to achieve abstraction and define contracts for subclasses and implementing classes, respectively, enabling polymorphism and flexibility in Java programs.
